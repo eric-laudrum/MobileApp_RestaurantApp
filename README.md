@@ -10,7 +10,4 @@ An Android app for browsing restaurants, viewing details, photos, reviews, and s
     `MAPS_API_KEY=YOUR_KEY`
   - Or export `MAPS_API_KEY` in your shell before building.
 
-## Build & Run
-- `./gradlew assembleDebug` or run from Android Studio.
-- On first launch, grant location permission for the My Location layer.
 
