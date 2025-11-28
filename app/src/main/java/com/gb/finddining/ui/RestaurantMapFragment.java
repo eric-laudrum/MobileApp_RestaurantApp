@@ -92,20 +92,11 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
                 map.setMyLocationEnabled(true);
             } catch (SecurityException ignored) {
                 // Permission check passed but enable failed; ignore to avoid crash.
+                System.out.println("per:");
             }
-        } else {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION);
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_LOCATION && grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED && map != null) {
-            enableMyLocationIfPermitted();
-        }
-    }
 
     private LatLng resolveLocation() {
         if (restaurant.latitude != 0 || restaurant.longitude != 0) {
@@ -120,7 +111,6 @@ public class RestaurantMapFragment extends Fragment implements OnMapReadyCallbac
             }
         } catch (IOException ignored) {
         }
-        // Toronto fallback to keep map centered even if geocoding fails.
         return new LatLng(43.6532, -79.3832);
     }
 }
