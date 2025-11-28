@@ -14,6 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.widget.Toolbar;
 
+import com.gb.finddining.ui.AboutFragment;
+import com.gb.finddining.ui.AddPhotoFragment;
+import com.gb.finddining.ui.HomeFragment;
+import com.gb.finddining.ui.LoginFragment;
+import com.gb.finddining.ui.ProfileFragment;
+import com.gb.finddining.ui.RateReviewFragment;
+import com.gb.finddining.ui.RestaurantDetailsFragment;
+import com.gb.finddining.ui.SearchResultsFragment;
+import com.gb.finddining.ui.ShareFragment;
+import com.gb.finddining.ui.SignUpFragment;
 import com.gb.finddining.ui.SplashFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.gb.finddining.auth.AuthManager;
