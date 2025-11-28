@@ -16,7 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        val mapsApiKey: String = gradleLocalProperties(rootDir).getProperty("MAPS_API_KEY")
+        val mapsApiKey: String = gradleLocalProperties(project.rootDir, providers).getProperty("MAPS_API_KEY")
             ?: System.getenv("MAPS_API_KEY")
             ?: ""
         manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
