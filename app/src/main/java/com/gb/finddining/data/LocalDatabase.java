@@ -19,7 +19,7 @@ import java.util.Locale;
 class LocalDatabase extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "finddining.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     LocalDatabase(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -34,7 +34,9 @@ class LocalDatabase extends SQLiteOpenHelper {
                 "tags TEXT," +
                 "rating REAL," +
                 "review_count INTEGER," +
-                "distance REAL" +
+                "distance REAL," +
+                "latitude REAL," +
+                "longitude REAL" +
                 ")");
         db.execSQL("CREATE TABLE reviews (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -56,10 +58,10 @@ class LocalDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS photos");
-        db.execSQL("DROP TABLE IF EXISTS reviews");
-        db.execSQL("DROP TABLE IF EXISTS restaurants");
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE restaurants ADD COLUMN latitude REAL DEFAULT 0");
+            db.execSQL("ALTER TABLE restaurants ADD COLUMN longitude REAL DEFAULT 0");
+        }
     }
 
     void seedIfEmpty(List<Restaurant> seedRestaurants) {
@@ -81,6 +83,8 @@ class LocalDatabase extends SQLiteOpenHelper {
                 values.put("rating", restaurant.rating);
                 values.put("review_count", restaurant.reviewCount);
                 values.put("distance", restaurant.distanceKm);
+                values.put("latitude", restaurant.latitude);
+                values.put("longitude", restaurant.longitude);
                 db.insert("restaurants", null, values);
 
                 for (Review review : restaurant.reviews) {
@@ -99,7 +103,7 @@ class LocalDatabase extends SQLiteOpenHelper {
     List<Restaurant> getRestaurants() {
         SQLiteDatabase db = getReadableDatabase();
         List<Restaurant> restaurants = new ArrayList<>();
-        try (Cursor cursor = db.rawQuery("SELECT id, name, address, tags, rating, review_count, distance FROM restaurants", null)) {
+        try (Cursor cursor = db.rawQuery("SELECT id, name, address, tags, rating, review_count, distance, latitude, longitude FROM restaurants", null)) {
             while (cursor.moveToNext()) {
                 String id = cursor.getString(0);
                 String name = cursor.getString(1);
@@ -108,7 +112,9 @@ class LocalDatabase extends SQLiteOpenHelper {
                 double rating = cursor.getDouble(4);
                 int reviewCount = cursor.getInt(5);
                 double distance = cursor.getDouble(6);
-                Restaurant restaurant = new Restaurant(id, name, address, parseTags(tags), rating, reviewCount, distance);
+                double latitude = cursor.getDouble(7);
+                double longitude = cursor.getDouble(8);
+                Restaurant restaurant = new Restaurant(id, name, address, parseTags(tags), rating, reviewCount, distance, latitude, longitude);
                 restaurant.reviews.addAll(getReviewsFor(id));
                 restaurant.photos.addAll(getPhotosFor(id));
                 restaurants.add(restaurant);
@@ -119,7 +125,7 @@ class LocalDatabase extends SQLiteOpenHelper {
 
     Restaurant getRestaurant(String id) {
         SQLiteDatabase db = getReadableDatabase();
-        try (Cursor cursor = db.rawQuery("SELECT name, address, tags, rating, review_count, distance FROM restaurants WHERE id = ?", new String[]{id})) {
+        try (Cursor cursor = db.rawQuery("SELECT name, address, tags, rating, review_count, distance, latitude, longitude FROM restaurants WHERE id = ?", new String[]{id})) {
             if (cursor.moveToFirst()) {
                 String name = cursor.getString(0);
                 String address = cursor.getString(1);
@@ -127,7 +133,9 @@ class LocalDatabase extends SQLiteOpenHelper {
                 double rating = cursor.getDouble(3);
                 int reviewCount = cursor.getInt(4);
                 double distance = cursor.getDouble(5);
-                Restaurant restaurant = new Restaurant(id, name, address, parseTags(tags), rating, reviewCount, distance);
+                double latitude = cursor.getDouble(6);
+                double longitude = cursor.getDouble(7);
+                Restaurant restaurant = new Restaurant(id, name, address, parseTags(tags), rating, reviewCount, distance, latitude, longitude);
                 restaurant.reviews.addAll(getReviewsFor(id));
                 restaurant.photos.addAll(getPhotosFor(id));
                 return restaurant;

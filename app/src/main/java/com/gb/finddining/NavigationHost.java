@@ -12,6 +12,7 @@ public interface NavigationHost {
     void navigateToRate(String id);
     void navigateToAddPhoto(String id);
     void navigateToShare(String id);
+    void navigateToMap(String id);
     void navigateToAbout();
     void navigateToProfile();
 }

@@ -32,19 +32,19 @@ public class DataRepository {
 
     private List<Restaurant> createSeedData() {
         List<Restaurant> seeds = new ArrayList<>();
-        Restaurant harbor = new Restaurant("1", "Harbor House", "12 Seaside Ave", Arrays.asList("Seafood", "Waterfront", "Date Night"), 4.6, 186, 1.2);
+        Restaurant harbor = new Restaurant("1", "Harbor House", "12 Seaside Ave", Arrays.asList("Seafood", "Waterfront", "Date Night"), 4.6, 186, 1.2, 43.6426, -79.3871);
         harbor.reviews.add(new Review("Mara", 5, "Incredible oysters and a view you cannot beat.", "Nov 3"));
         harbor.reviews.add(new Review("Luis", 4, "Great service, would come again.", "Nov 1"));
         harbor.photos.add(new RestaurantPhoto("Seaside patio", "android.resource://com.gb.finddining/drawable/splash_image"));
         harbor.photos.add(new RestaurantPhoto("Signature dish", "android.resource://com.gb.finddining/drawable/ic_app_logo"));
         harbor.photos.add(new RestaurantPhoto("Chef's special", "android.resource://com.gb.finddining/drawable/splash_image"));
 
-        Restaurant cedar = new Restaurant("2", "Cedar & Stone", "204 Garden Street", Arrays.asList("Vegan", "Brunch", "Cozy"), 4.4, 98, 0.6);
+        Restaurant cedar = new Restaurant("2", "Cedar & Stone", "204 Garden Street", Arrays.asList("Vegan", "Brunch", "Cozy"), 4.4, 98, 0.6, 43.6665, -79.3945);
         cedar.reviews.add(new Review("Priya", 5, "Loved the seasonal menu and coffee!", "Oct 31"));
         cedar.photos.add(new RestaurantPhoto("Brunch plate", "android.resource://com.gb.finddining/drawable/splash_image"));
         cedar.photos.add(new RestaurantPhoto("Garden seating", "android.resource://com.gb.finddining/drawable/ic_app_logo"));
 
-        Restaurant golden = new Restaurant("3", "Golden Chopsticks", "77 Market Lane", Arrays.asList("Noodles", "Takeout", "Late Night"), 4.2, 132, 2.4);
+        Restaurant golden = new Restaurant("3", "Golden Chopsticks", "77 Market Lane", Arrays.asList("Noodles", "Takeout", "Late Night"), 4.2, 132, 2.4, 43.6532, -79.3832);
         golden.reviews.add(new Review("Sam", 4, "Quick service and generous portions.", "Oct 29"));
         golden.photos.add(new RestaurantPhoto("Hand-pulled noodles", "android.resource://com.gb.finddining/drawable/ic_app_logo"));
         golden.photos.add(new RestaurantPhoto("Late night vibe", "android.resource://com.gb.finddining/drawable/splash_image"));

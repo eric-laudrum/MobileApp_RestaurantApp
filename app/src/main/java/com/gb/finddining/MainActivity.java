@@ -21,6 +21,7 @@ import com.gb.finddining.ui.LoginFragment;
 import com.gb.finddining.ui.ProfileFragment;
 import com.gb.finddining.ui.RateReviewFragment;
 import com.gb.finddining.ui.RestaurantDetailsFragment;
+import com.gb.finddining.ui.RestaurantMapFragment;
 import com.gb.finddining.ui.SearchResultsFragment;
 import com.gb.finddining.ui.ShareFragment;
 import com.gb.finddining.ui.SignUpFragment;
@@ -131,6 +132,11 @@ public class MainActivity extends AppCompatActivity implements NavigationHost {
     @Override
     public void navigateToShare(String id) {
         showFragment(ShareFragment.newInstance(id), true);
+    }
+
+    @Override
+    public void navigateToMap(String id) {
+        showFragment(RestaurantMapFragment.newInstance(id), true);
     }
 
     @Override
