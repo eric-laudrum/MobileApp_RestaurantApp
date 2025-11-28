@@ -2,6 +2,7 @@ package com.gb.finddining.ui;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.gb.finddining.auth.AuthManager;
 
 public class LoginFragment extends Fragment {
 
+    private static final String TAG = "LoginFragment";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,13 +39,16 @@ public class LoginFragment extends Fragment {
         View createAccount = view.findViewById(R.id.link_create_account);
 
         boolean remember = AuthManager.shouldRemember(requireContext());
+        Log.i(TAG, "onViewCreated: ");
         rememberMe.setChecked(remember);
         String savedUser = AuthManager.getUsername(requireContext());
         String savedPass = AuthManager.getPassword(requireContext());
         if (savedUser != null) {
             username.setText(savedUser);
         }
+        Log.i(TAG, "savedPass and remember : "+savedPass+' '+remember);
         if (remember && savedPass != null) {
+
             password.setText(savedPass);
         }
 
